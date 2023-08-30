@@ -5,9 +5,13 @@ name = "pypi"
 
 [packages]
 flask = "*"
+flask-restx = "*"
+streamlit = "*"
+pytesseract = "*"
+openpyxl = "*"
+pdf2image = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.10"
-
