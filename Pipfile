@@ -10,6 +10,7 @@ streamlit = "*"
 pytesseract = "*"
 openpyxl = "*"
 pdf2image = "*"
+textract = "*"
 
 [dev-packages]
 
