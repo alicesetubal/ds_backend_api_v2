@@ -1,11 +1,11 @@
 from pdf2image import convert_from_path
 import pytesseract
-import textract
+#import textract
 import openpyxl
 import csv
 import datetime
 import re
-
+from docx import Document
 
 class TextExtractor:
     @staticmethod
@@ -64,6 +64,21 @@ class TextExtractor:
         return extracted_text
 
     @staticmethod
+    def extract_text_from_docx(filepath):
+        doc = Document(filepath)
+        text = ""
+        for paragraph in doc.paragraphs:
+            text += paragraph.text + "\n"
+        return text
+    pass
+
+    @staticmethod
+    def extract_text_from_txt(filepath):
+        with open(filepath, 'r', encoding='utf-8') as txtfile:
+            text = txtfile.read()
+        return text
+    
+    @staticmethod
     def extract_text_from_file(filepath, file_type):
         if file_type == 'pdf':
             return TextExtractor.extract_text_from_pdf(filepath)
@@ -72,6 +87,14 @@ class TextExtractor:
         elif file_type == 'csv':
             return TextExtractor.extract_text_from_csv(filepath)
         else:
-            # Utilizar o textract para extrair texto de outros formatos (Word e texto)
+            '''# Utilizar o textract para extrair texto de outros formatos (Word e texto)
             text = textract.process(filepath).decode('utf-8')
+            return text'''
+            if file_type == 'docx':
+                text = TextExtractor.extract_text_from_docx(filepath)
+            elif file_type == 'txt':
+                text = TextExtractor.extract_text_from_txt(filepath)
+            else:
+                text = "Formato de arquivo não suportado"
             return text
+
